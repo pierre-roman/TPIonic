@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {AlertController} from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +12,14 @@ export class HomePage {
 
   title: string;
   imgData: string;
+  tabCoordLongitude: Array<any>;
+  tabCoordLattitude:Array<any>;
 
-  constructor(private alertController: AlertController, private camera: Camera) {}
+  constructor(private alertController: AlertController, private camera: Camera, private geolocation: Geolocation) {
+    this.tabCoordLongitude = [];
+    this.tabCoordLattitude = [];
+
+  }
 
   updateTitle() {
     this.title = 'Mon Nouveau Titre';
@@ -53,6 +60,18 @@ export class HomePage {
     }, (err) => {
       // Handle error
     });
+  }
+
+  savePos(){
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.tabCoordLongitude.push(resp.coords.longitude);
+      this.tabCoordLattitude.push(resp.coords.latitude);
+      // resp.coords.latitude
+      // resp.coords.longitude
+      resp
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
   }
 
 }

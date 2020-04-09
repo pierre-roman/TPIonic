@@ -41,13 +41,37 @@
         <ion-label>Go To Login</ion-label>
       </ion-item>
 
-      <ion-item>
+      <ion-item (click)="savePos()" class="ion-activated">
         <ion-icon name="walk" slot="start"></ion-icon>
-        <ion-label>Card Button Item 2</ion-label>
+        <ion-label>Save position</ion-label>
       </ion-item>
     </ion-card>
     <ion-card *ngIf="imgData">
       <img [src]="imgData">
+    </ion-card>
+    <ion-card >
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            Longitude
+          </ion-col>
+          <ion-col>
+            ordonné
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let longitude of tabCoordLongitude; let i = index">
+          <ion-col>
+            <ion-row>
+              <ion-col>
+                {{tabCoordLongitude[i]}}
+              </ion-col>
+              <ion-col>
+                {{tabCoordLattitude[i]}}
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card>
   </div>
 </ion-content>
