@@ -1,3 +1,4 @@
+
 import {TestBed} from '@angular/core/testing';
 
 import {LoginService} from './login.service';
@@ -18,7 +19,8 @@ describe('LoginService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule]
+            imports: [HttpClientTestingModule],
+            providers: [LoginService]
         });
 
         httpTestingController = TestBed.get(HttpTestingController);
