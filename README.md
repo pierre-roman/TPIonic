@@ -1,2 +1,2 @@
-![(Unnamed workflow)](https://github.com/pierre-roman/TPIonic/workflows/(Unnamed%20workflow)/badge.svg)
+![Angular CI](https://github.com/pierre-roman/TPIonic/workflows/Angular%20CI/badge.svg)
 # TPIonic
