@@ -21,8 +21,10 @@ export class HomePage {
     this.tabCoordLattitude = [];
     this.watch = this.geolocation.watchPosition();
     this.watch.subscribe((data) => {
-      this.tabCoordLongitude.push(data.coords.longitude);
-      this.tabCoordLattitude.push(data.coords.latitude);
+      if(data.coords && data.coords.longitude && data.coords.latitude){
+        this.tabCoordLongitude.push(data.coords.longitude);
+        this.tabCoordLattitude.push(data.coords.latitude);
+      }
     });
   }
 
@@ -69,8 +71,10 @@ export class HomePage {
 
   savePos(){
     this.geolocation.getCurrentPosition().then((resp) => {
-      this.tabCoordLongitude.push(resp.coords.longitude);
-      this.tabCoordLattitude.push(resp.coords.latitude);
+      if(resp.coords && resp.coords.longitude && resp.coords.latitude){
+        this.tabCoordLongitude.push(resp.coords.longitude);
+        this.tabCoordLattitude.push(resp.coords.latitude);
+      }
       // resp.coords.latitude
       // resp.coords.longitude
      }).catch((error) => {
