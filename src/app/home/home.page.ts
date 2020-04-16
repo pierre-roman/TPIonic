@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AlertController} from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomePage {
   tabCoordLattitude: Array<any>;
   watch: any;
 
-  constructor(private alertController: AlertController, private camera: Camera, private geolocation: Geolocation) {
+  constructor(private alertController: AlertController, private camera: Camera, private geolocation: Geolocation, private localNotifications: LocalNotifications) {
     this.tabCoordLongitude = [];
     this.tabCoordLattitude = [];
     this.watch = this.geolocation.watchPosition();
@@ -80,6 +81,15 @@ export class HomePage {
      }).catch((error) => {
        console.log('Error getting location', error);
      });
+  }
+
+  sendNotification(){
+    this.localNotifications.schedule({
+      title: 'ma notification',
+      text: 'Ceci est une notification',
+      icon: 'https://i.kym-cdn.com/photos/images/facebook/001/368/285/825.jpg',
+      led: '#00FF00',
+    });
   }
 
 }
