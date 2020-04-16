@@ -13,12 +13,17 @@ export class HomePage {
   title: string;
   imgData: string;
   tabCoordLongitude: Array<any>;
-  tabCoordLattitude:Array<any>;
+  tabCoordLattitude: Array<any>;
+  watch: any;
 
   constructor(private alertController: AlertController, private camera: Camera, private geolocation: Geolocation) {
     this.tabCoordLongitude = [];
     this.tabCoordLattitude = [];
-
+    this.watch = this.geolocation.watchPosition();
+    this.watch.subscribe((data) => {
+      this.tabCoordLongitude.push(data.coords.longitude);
+      this.tabCoordLattitude.push(data.coords.latitude);
+    });
   }
 
   updateTitle() {
@@ -68,7 +73,6 @@ export class HomePage {
       this.tabCoordLattitude.push(resp.coords.latitude);
       // resp.coords.latitude
       // resp.coords.longitude
-      resp
      }).catch((error) => {
        console.log('Error getting location', error);
      });
