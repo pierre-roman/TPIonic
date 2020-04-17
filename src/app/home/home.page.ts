@@ -23,15 +23,11 @@ export class HomePage {
     this.tabCoordLattitude = [];
     this.watch = this.geolocation.watchPosition();
     this.watch.subscribe((data) => {
-      if(data.coords && data.coords.longitude && data.coords.latitude){
+      if(data.coords){
         this.tabCoordLongitude.push(data.coords.longitude);
         this.tabCoordLattitude.push(data.coords.latitude);
       }
     });
-  }
-
-  updateTitle() {
-    this.title = 'Mon Nouveau Titre';
   }
 
   /**
@@ -52,7 +48,7 @@ export class HomePage {
     await alert.present();
   }
 
-  takePicture() {
+  takePicture(callback?: Function) {
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -64,21 +60,26 @@ export class HomePage {
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
-      console.log(imageData);
       this.imgData = 'data:image/jpeg;base64,' + imageData;
+      if(callback){
+        callback();
+      }
     }, (err) => {
       // Handle error
+      console.log('erreur connard');
+      
     });
   }
 
-  savePos(){
+  savePos(callback?: Function){
     this.geolocation.getCurrentPosition().then((resp) => {
-      if(resp.coords && resp.coords.longitude && resp.coords.latitude){
+      if(resp.coords){
         this.tabCoordLongitude.push(resp.coords.longitude);
         this.tabCoordLattitude.push(resp.coords.latitude);
       }
       // resp.coords.latitude
       // resp.coords.longitude
+      callback();
      }).catch((error) => {
        console.log('Error getting location', error);
      });
@@ -86,11 +87,16 @@ export class HomePage {
 
   sendNotification(){
     this.localNotifications.schedule({
+      id: 1,
       title: 'ma notification',
       text: 'Ceci est une notification',
       icon: 'https://i.kym-cdn.com/photos/images/facebook/001/368/285/825.jpg',
       led: '#00FF00',
     });
+  }
+
+  getLocalNotication(){
+    return this.localNotifications;
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CameraPreview } from '@ionic-native/camera-preview/ngx';
 
 
@@ -7,7 +7,7 @@ import { CameraPreview } from '@ionic-native/camera-preview/ngx';
   templateUrl: './camera.page.html',
   styleUrls: ['./camera.page.scss'],
 })
-export class CameraPage {
+export class CameraPage implements OnDestroy {
 
   cameraStatus: boolean;
   photos: Array<String>;
@@ -27,7 +27,11 @@ export class CameraPage {
     this.openCamera();
   }
 
-  openCamera(){
+  ngOnDestroy(){
+    this.closeCamera();
+  }
+
+  openCamera(callback?: Function){
     this.cameraPreview.startCamera({
       x: 0,
       y: 0,
@@ -43,6 +47,7 @@ export class CameraPage {
           console.log(maxZoom);
           this.maxZoom = maxZoom;
           this.zoomChange();
+          callback();
         })
       },
       (err) => {
@@ -50,10 +55,11 @@ export class CameraPage {
       });
   }
 
-  takePicture(){
+  takePicture(callback?: Function){
     // 'data:image/jpeg;base64,'
     this.cameraPreview.takePicture({width:window.screen.width, height:window.screen.height, quality: 100}).then((base64PictureData) => {
       this.photos.push(base64PictureData);
+      callback();
     });
   }
 
@@ -78,6 +84,10 @@ export class CameraPage {
 
   zoomChange(){
     this.cameraPreview.setZoom(this.zoomValue);
+  }
+
+  getCameraPreview(){
+    return this.cameraPreview;
   }
 
 }

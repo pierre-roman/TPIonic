@@ -25,8 +25,30 @@ describe('HomePage', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(component.title).toBeUndefined();
   });
+
+  it('takePicture', () => {
+    component.imgData = "";
+    component.takePicture(() => {
+      expect(component.imgData.length).toBeGreaterThan(0);
+    });
+  })
+
+  it('savePos', () => {
+    component.tabCoordLongitude = [];
+    component.tabCoordLattitude = [];
+    component.savePos(() => {
+      expect(component.tabCoordLattitude.length).toBeGreaterThan(0);
+      expect(component.tabCoordLongitude.length).toBeGreaterThan(0);
+    })
+  })
+
+  it('sendNotification', () => {
+    component.sendNotification();
+    component.getLocalNotication().get(1).then((notificationTest) => {
+      expect(notificationTest.id).toBe(1);
+    });    
+  })
 
   /*it('change title', () => {
     component.title = 'Mon Titre';

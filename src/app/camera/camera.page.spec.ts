@@ -30,4 +30,46 @@ describe('CameraPage', () => {
     component.changeView();
     expect(component.cameraView).toBeFalsy();
   });
+
+  it('useFlashTrue', () => {
+    component.flashMode = true;
+    component.useFlash();
+    expect(component.flashMode).toBeFalsy();
+  });
+
+  it('useFlashFalse', () => {
+    component.flashMode = false;
+    component.useFlash();
+    expect(component.flashMode).toBeTruthy();
+  });
+
+  it('zoomChange', () => {
+    component.zoomValue = 2;
+    component.zoomChange();
+    component.getCameraPreview().getZoom().then((currentZoom) => {
+      expect(currentZoom).toEqual(2);
+    });
+  })
+
+  it('openCameraTrue', () => {
+    component.cameraView = true
+    component.openCamera(() => {
+      expect(component.maxZoom).toBeTruthy;
+    })
+  })
+
+  it('openCameraFalse', () => {
+    component.cameraView = false
+    component.openCamera(() => {
+      expect(component.maxZoom).toBeTruthy;
+    })
+  })
+
+
+  it('takePicture', () => {
+    component.photos = [];
+    component.takePicture(() => {
+      expect(component.photos.length).toBeGreaterThan(0);
+    })
+  })
 });
