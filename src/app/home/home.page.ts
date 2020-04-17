@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {AlertController} from '@ionic/angular';
+
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';

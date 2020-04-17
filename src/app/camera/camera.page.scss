@@ -1,0 +1,13 @@
+.custom-ion-content{ 
+    --background: transparent !important;
+}
+
+.previewPhoto{
+    height: 20%;
+    width: 20%;
+    align-content: center;
+    img {
+        max-height: 100%;
+        max-width: 100%;
+    }
+}

@@ -13,6 +13,11 @@ import {HttpClientModule} from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { CameraPreview, 
+    CameraPreviewPictureOptions, 
+    CameraPreviewOptions, 
+    CameraPreviewDimensions 
+} from '@ionic-native/camera-preview/ngx';
 
 @NgModule({
     declarations: [AppComponent],
@@ -25,6 +30,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
         StatusBar,
         Camera,
         Geolocation,
+        CameraPreview,
         LocalNotifications,
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}

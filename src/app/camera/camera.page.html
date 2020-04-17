@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>camera</ion-title>
+    </ion-toolbar>
+</ion-header>
+  
+<ion-item>
+  <ion-range [(ngModel)]="zoomValue" *ngIf="!viewGallery"  min="1" max="{{maxZoom}}" step="1" (ionChange)="zoomChange()">
+    <ion-icon size="small" slot="start" name="remove-outline"></ion-icon>
+    <ion-icon slot="end" name="add-outline"></ion-icon>
+  </ion-range>
+</ion-item>
+
+<ion-content [fullscreen]="true" [ngClass]="{'custom-ion-content': true}" *ngIf="!viewGallery">
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="takePicture()">
+      <ion-icon name="camera-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="dark" class="photoButton" (click)="changeView()">
+      <ion-icon name="camera-reverse-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab class="flashButton" vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="light" (click)="useFlash()">
+      <ion-icon *ngIf="!flashMode" name="flash-outline"></ion-icon>
+      <ion-icon *ngIf="flashMode" name="flash-off-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab class="previewPhoto" vertical="bottom" horizontal="start" slot="fixed">
+    <ion-card (click)="viewGallery = !viewGallery">
+      <img *ngIf="photos.length > 0" [src]="'data:image/jpeg;base64,' + photos[photos.length-1]">
+    </ion-card>
+  </ion-fab>
+</ion-content>
+
+<ion-content [fullscreen]="true" *ngIf="viewGallery">
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger" (click)="viewGallery = !viewGallery">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-slides [options]="{}">
+    <ion-slide *ngFor="let image of photos; let i = index">
+      <img [src]="'data:image/jpeg;base64,' + photos[photos.length-i-1]">
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+
+
